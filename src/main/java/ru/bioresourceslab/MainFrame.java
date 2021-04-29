@@ -10,14 +10,10 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.PrinterException;
@@ -39,11 +35,9 @@ public class MainFrame extends JFrame {
     private JComboBox<String> fromColumnBox;
     private JList<String> excelList;
 
-    private JPopupMenu listPopup;
-    private JMenuItem reprintMenuItem;
-    private JMenuItem clearListMenuItem;
+//    private final JMenuItem reprintMenuItem;
 
-    private static DefaultListModel<String> listModel = new DefaultListModel<>();
+    private static final DefaultListModel<String> listModel = new DefaultListModel<>();
     private File excelFile = null;
 
 
@@ -62,7 +56,12 @@ public class MainFrame extends JFrame {
             }
         }
 
-        listPopup = new JPopupMenu();
+        JMenuItem reprintMenuItem = new JMenuItem("re-print");
+        reprintMenuItem.addActionListener(e -> sendLabelToPrint(labelList.getSelectedValue()));
+        JMenuItem clearListMenuItem = new JMenuItem("clear");
+        clearListMenuItem.addActionListener(e -> listModel.clear());
+
+        JPopupMenu listPopup = new JPopupMenu();
         listPopup.addPopupMenuListener(new PopupMenuListener() {
             @Override
             public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
@@ -79,11 +78,7 @@ public class MainFrame extends JFrame {
 
             }
         });
-        reprintMenuItem = new JMenuItem("re-print");
-        reprintMenuItem.addActionListener(e -> sendLabelToPrint((String) labelList.getSelectedValue()));
         listPopup.add(reprintMenuItem);
-        clearListMenuItem = new JMenuItem("clear");
-        clearListMenuItem.addActionListener(e -> listModel.clear());
         listPopup.add(clearListMenuItem);
 
         labelList.setComponentPopupMenu(listPopup);

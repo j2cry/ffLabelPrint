@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.print.*;
 
 public class LabelRender extends AbstractLabelRender {
-    private Font font;
+    private final Font font;
 
 //    public LabelRender(String code) {
 //        super(code);
@@ -31,7 +31,7 @@ public class LabelRender extends AbstractLabelRender {
 //    }
 
     @Override
-    public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
+    public int print(Graphics g, PageFormat pf, int page) {
         if (page > 0) {
             return NO_SUCH_PAGE;
         }
