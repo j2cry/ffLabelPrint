@@ -6,29 +6,29 @@ import java.awt.print.*;
 public class LabelRender extends AbstractLabelRender {
     private Font font;
 
-    public LabelRender(String code) {
-        super(code);
-    }
+//    public LabelRender(String code) {
+//        super(code);
+//    }
 
     public LabelRender(String code, Font font) {
         super(code);
         this.font = font;
     }
 
-    // зачем такой петух? много однотипных аргументов!!!
-    public LabelRender(String code, int prefix, int type, int number) {
-        super(code, prefix, type, number);
-    }
+// зачем такой петух? много однотипных аргументов!!!
+//    public LabelRender(String code, int prefix, int type, int number) {
+//        super(code, prefix, type, number);
+//    }
 
-    // а это просто пиздец...
+    // а это просто рукалицо...
     public LabelRender(String code, int prefix, int type, int number, Font font) {
         super(code, prefix, type, number);
         this.font = font;
     }
 
-    public void setFont(Font font) {
-        this.font = font;
-    }
+//    public void setFont(Font font) {
+//        this.font = font;
+//    }
 
     @Override
     public int print(Graphics g, PageFormat pf, int page) throws PrinterException {

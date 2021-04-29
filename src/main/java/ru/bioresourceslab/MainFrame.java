@@ -104,6 +104,7 @@ public class MainFrame extends JFrame {
             PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
 
             if (printJob.printDialog(attributes)) {
+                // печать с первой вкладки
                 if (tabbedPane.getSelectedIndex() == 0) {
                     // получаем спиннеры
                     for (int i = 0; i < 6; i++) {
@@ -128,12 +129,14 @@ public class MainFrame extends JFrame {
                         }
 
                     }
+                // печать со второй вкладки
                 } else if (tabbedPane.getSelectedIndex() == 1) {
                     for (int ind = 0; ind < excelList.getModel().getSize(); ind++) {
-                        String label = excelList.getModel().getElementAt(ind);
+                        LabelRender label = new LabelRender(excelList.getModel().getElementAt(ind), font);
+                        printJob.setPrintable(label, pf);
                         try {
                             printJob.print();
-                            listModel.addElement(label);
+                            listModel.addElement(label.getLabel());
                         } catch (PrinterException prnExc) {
                             // обработчик исключения
                         }

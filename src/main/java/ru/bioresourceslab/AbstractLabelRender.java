@@ -15,7 +15,7 @@ public abstract class AbstractLabelRender implements Printable{
     private final static int METASTASIS = 3;
     private final static int LYMPHNODE = 4;
     private final static int LYMPHNODE_METASTASIS = 5;
-    private final static int RELAPSE = 6;
+    private final static int RECURRENT = 6;
 
     final private String label;
 
@@ -24,8 +24,8 @@ public abstract class AbstractLabelRender implements Printable{
     }
 
     public AbstractLabelRender(String code, int prefix, int type, int number) {
-        // T3, T4, T5, T6 - всегда Т
-        if ((type == METASTASIS) || (type == LYMPHNODE) || (type == LYMPHNODE_METASTASIS) || (type == RELAPSE)) {
+        // T3, T5, T6 - всегда Т; T4 - если не B4
+        if ((type == METASTASIS) || ((type == LYMPHNODE) && (prefix != MATERIAL_BENIGN)) || (type == LYMPHNODE_METASTASIS) || (type == RECURRENT)) {
             label = code + "T" + type + "(" + number + ")";
             return;
         }
@@ -40,7 +40,7 @@ public abstract class AbstractLabelRender implements Printable{
         }
         // если норма или опухоль и не аутопсия
         if (prefix == MATERIAL_STANDARD) {
-            label = code+ " T" + type + "(" + number + ")";
+            label = code+ "T" + type + "(" + number + ")";
             return;
         }
         if (prefix == MATERIAL_BENIGN) {
